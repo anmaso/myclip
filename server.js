@@ -26,11 +26,16 @@ app.get("/", (request, response) => {
 
 // send the default array of dreams to the webpage
 app.get("/:key", (request, response) => {
+  const key=request.params.key;
   // express helps us take JS objects and send them as JSON
   if (request.headers && request.headers['accept']=='application/json'){
-    return   response.json(dict[request.params.key]);    
+    return   response.json({[key]:dict[key]});    
   }
-  response.send('<html>'+dict[request.params.key]+JSON.stringify(request.headers));
+   if (request.headers && (request.headers['user-agent']||'').indexOf('HTML')>=0){
+    response.send('<html>'+dict[key]+JSON.stringify(request.headers));
+  }
+  response.send(dict[key]);
+  
 
 });
 
