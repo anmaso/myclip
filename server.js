@@ -13,6 +13,8 @@ const dreams = [
   "Wash the dishes"
 ];
 
+const dict = {};
+
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
@@ -23,10 +25,21 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
+app.get("/:key", (request, response) => {
   // express helps us take JS objects and send them as JSON
-  response.json(dreams);
+  if (request.headers && request.headers['Accept']=='application/json'){
+    return   response.json(dict[request.params.key]);    
+  }
+  response.send('<html>'+dict[request.params.key]);
+
 });
+
+app.put("/:key/:value", (request,response)=>{
+  const key = request.params.key;
+  const value = request.params.value;
+  dict[key]=value;
+  response.send('<html><a href="">https://myclip.glitch.me/'+key+'</a>')
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
