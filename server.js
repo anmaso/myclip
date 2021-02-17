@@ -24,6 +24,14 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
+app.get("/:key/:value", (request, response) => {
+  const key=request.params.key;
+  const value=request.params.value;
+  dict[key]=value;
+  response.redirect('/'+key);
+});
+
+
 // send the default array of dreams to the webpage
 app.get("/:key", (request, response) => {
   const key=request.params.key;
@@ -35,8 +43,6 @@ app.get("/:key", (request, response) => {
     response.send('<html>'+dict[key]+JSON.stringify(request.headers));
   }
   response.send(dict[key]);
-  
-
 });
 
 app.put("/:key/:value", (request,response)=>{
