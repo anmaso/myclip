@@ -40,7 +40,7 @@ app.get("/:key", (request, response) => {
     return   response.json({[key]:dict[key]});    
   }
    if (request.headers && (request.headers['user-agent']||'').indexOf('HTML')>=0){
-    response.send('<html>'+dict[key]+JSON.stringify(request.headers));
+    response.send('<html><pre>'+dict[key]+JSON.stringify(request.headers));
   }
   response.send(dict[key]);
 });
