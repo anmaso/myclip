@@ -45,9 +45,10 @@ app.get("/:key", (request, response) => {
   response.send(dict[key]);
 });
 
-app.put("/:key/:value", (request,response)=>{
+app.post("/", (request,response)=>{
   const key = request.params.key;
   const value = request.params.value;
+  console.log(request.body)
   dict[key]=value;
   response.send('<html><a href="">https://myclip.glitch.me/'+key+'</a>')
 })
