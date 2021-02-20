@@ -39,7 +39,13 @@ app.get("/:key/:value", (request, response) => {
 // send the default array of dreams to the webpage
 app.get("/:key", (request, response) => {
   const key = request.params.key;
-  const value = dict[key]
+  var v = dict[key] || {};
+  const value = v.value || '';
+  const destroy = v.destroy;
+  
+  if (destroy){
+    delete dict[key];
+  }
   
 
   // express helps us take JS objects and send them as JSON
@@ -55,9 +61,12 @@ app.get("/:key", (request, response) => {
 app.post("/", (request, response) => {
   const key = request.body.key;
   const value = request.body.value;
+  const destroy = request.body.destroy;
   console.log(request.body);
-  dict[key] = value;
-  response.send('<html><a href="">https://myclip.glitch.me/' + key + "</a>");
+  dict[key] = {destroy, value};
+  
+  const href='https://myclip.glitch.me/'+key;
+  response.render('result', { key, href })
 });
 
 // listen for requests :)

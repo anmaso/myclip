@@ -5,7 +5,7 @@ html
       include ./style.css
   body
     h1 Simple internet clipboard
-    form
+    form(method='POST' action='/')
       label(for='destroy') Destroy on view
       input( type='checkbox' name='destroy' id='destroy' checked )
       br
@@ -14,7 +14,7 @@ html
       br
       label(for='value') Text to store
       br
-      textarea( name='value' id='value' rows='10')
+      textarea( name='value' id='value' rows='10')= value
       br
       button( type='submit') Send
         
