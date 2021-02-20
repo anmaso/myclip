@@ -35,3 +35,11 @@ p.random {
 a {
   color: white;
 }
+button {
+  padding: 0.5rem;
+  background: #232526;
+  border: 1px solid #0f4040;
+  color: #ccc;
+  font-weight: bolder;
+  margin-bottom: 3rem;
+}

@@ -36,7 +36,7 @@ function haiku(){
   "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf",
   "thunder", "violet", "water", "wildflower", "wave", "water", "resonance",
   "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper",
-  "frog", "smoke", "star", "panda", "dog", "cat", "tiger", "cow", "sheep", "hippo", "lion", ""];
+  "frog", "smoke", "star", "panda", "dog", "cat", "tiger", "cow", "sheep", "hippo", "lion", "koala", "duck", "bird", "elephant", "frog", "puma", "mouse", "chicken", "pig", "horse"];
 
   return adjs[Math.floor(Math.random()*(adjs.length-1))]+"-"+nouns[Math.floor(Math.random()*(nouns.length-1))];
 }
