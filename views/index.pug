@@ -10,7 +10,10 @@ html
       input( type='checkbox' name='destroy' id='destroy' checked )
       br
       label(for='key') Name
+
       input( value= key name="key" id="key" )
+      if random
+        p( class='random') Name was randomly generated, adapt to your liking
       br
       label(for='value') Text to store
       br
@@ -18,4 +21,4 @@ html
       br
       button( type='submit') Send
         
-      
+    

@@ -17,6 +17,30 @@ const dreams = [
 
 const dict = {};
 
+function haiku(){
+  var adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry",
+  "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring",
+  "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered",
+  "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green",
+  "long", "late", "lingering", "bold", "little", "morning", "muddy", "old",
+  "red", "rough", "still", "small", "sparkling", "throbbing", "shy",
+  "wandering", "withered", "wild", "black", "young", "holy", "solitary",
+  "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine",
+  "polished", "ancient", "purple", "lively", "nameless"]
+
+  , nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea",
+  "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn",
+  "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird",
+  "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower",
+  "firefly", "feather", "grass", "haze", "mountain", "night", "pond",
+  "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf",
+  "thunder", "violet", "water", "wildflower", "wave", "water", "resonance",
+  "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper",
+  "frog", "smoke", "star", "panda", "dog", "cat", "tiger", "cow", "sheep", "hippo", "lion", ""];
+
+  return adjs[Math.floor(Math.random()*(adjs.length-1))]+"-"+nouns[Math.floor(Math.random()*(nouns.length-1))];
+}
+
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
@@ -25,20 +49,24 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.set('view engine', 'pug')
 
 // https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
-});
+
 
 app.get("/:key/:value", (request, response) => {
-  const key = request.params.key;
+  const key = request.params.key || haiku();
+  
   const value = request.params.value;
   dict[key] = value;
   response.redirect("/" + key);
 });
 
 // send the default array of dreams to the webpage
-app.get("/:key", (request, response) => {
-  const key = request.params.key;
+app.get("/:key?", (request, response) => {
+  var key = request.params.key;
+  var random = false;
+  if (!key){
+    key= haiku();
+    random=true;
+  }
   var v = dict[key] || {};
   const value = v.value || '';
   const destroy = v.destroy;
@@ -55,7 +83,7 @@ app.get("/:key", (request, response) => {
   const headers =  JSON.stringify(request.headers)
 
   
-  response.render('index', { key, value, headers })
+  response.render('index', { key, value, headers, random })
 });
 
 app.post("/", (request, response) => {

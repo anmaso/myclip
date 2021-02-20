@@ -24,5 +24,14 @@ textarea {
   font-family: Consolas, "Courier new";
   background: #0f2027;
   border:1px solid #0f4040;
+  color: white;
     
+}
+
+p.random {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+a {
+  color: white;
 }
