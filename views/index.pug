@@ -1,12 +1,21 @@
 html
   head
     title= title
+    style 
+      include ./style.css
   body
     h1 Simple internet clipboard
-    label (for=keep) Mantener
-    input(
-      type='checkbox'
-      name='agreement'
-      checked
-    )
+    form
+      label(for='destroy') Destroy on view
+      input( type='checkbox' name='destroy' id='destroy' checked )
+      br
+      label(for='key') Name
+      input( value= key name="key" id="key" )
+      br
+      label(for='value') Text to store
+      br
+      textarea( name='value' id='value' rows='10')
+      br
+      button( type='submit') Send
+        
       

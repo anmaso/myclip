@@ -39,21 +39,17 @@ app.get("/:key/:value", (request, response) => {
 // send the default array of dreams to the webpage
 app.get("/:key", (request, response) => {
   const key = request.params.key;
-  response.render('index', { title: 'Hey', message: 'Hello there!' })
+  const value = dict[key]
+  
 
   // express helps us take JS objects and send them as JSON
   if (request.headers && request.headers["accept"] == "application/json") {
     return response.json({ [key]: dict[key] });
   }
-  if (
-    request.headers &&
-    (request.headers["user-agent"] || "").indexOf("HTML") >= 0
-  ) {
-    response.send(
-      "<html><pre>" + dict[key] + "\n\n" + JSON.stringify(request.headers)
-    );
-  }
-  response.send(dict[key]);
+  const headers =  JSON.stringify(request.headers)
+
+  
+  response.render('index', { key, value, headers })
 });
 
 app.post("/", (request, response) => {

@@ -1,0 +1,8 @@
+body {
+  font-family: Arial;
+}
+
+textarea {
+  width: 100%;
+  font-family: Consolas, "Courier new"
+}
