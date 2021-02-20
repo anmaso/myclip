@@ -17,6 +17,8 @@ input {
   color: white;
   padding: .5rem;
   border:1px solid #0f4040;
+  font-family: Consolas, "Courier new";
+  font-size: 1rem;
   
 }
 textarea {
@@ -25,6 +27,7 @@ textarea {
   background: #0f2027;
   border:1px solid #0f4040;
   color: white;
+  font-size: 1rem;
     
 }
 
