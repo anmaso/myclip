@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "faker": ""
+    "faker": "",
+    "pug":""
   },
   "engines": {
     "node": "12.x"
