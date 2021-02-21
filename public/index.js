@@ -14,9 +14,10 @@ window.onload = function(){
   
   if(value){
     decode()
+    get('decode').onclick=decode;
   }
   
-  get('_secret').onkeyup=decode;
+  
   
   get('send').onclick = function(){
   

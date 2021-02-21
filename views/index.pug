@@ -24,11 +24,14 @@ html
 
       textarea(name='value' id='value' style={display:'none'})= value
     div
-      
+      if value
+        p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
+        div(class='encrypted')= value
       label(for='secret') Secret
       input(value='secret' id='_secret')
+      
       if value
-        p Type the secret you selected when text was stored (default value is 'secret')
+        button( id='decode') Decode
       br
       label(for='value') Text to store
       br
