@@ -11,28 +11,28 @@ html
     p This is hosted on glitch.me, you can inspect the code your are running for security, and also don't expect to data to be alive for long, as it is not durable persisted. Store, share the link and move on
     p Values on server are stored encrypted with AES.
     p If your are concerned about privacy you can use your onw secret key below or just remix the project on glitch to have your own version
-    form(method='POST' action='/')
+    form(method='POST' action='/' id='form')
       label(for='destroy') Destroy data on first view
       input( value= key name="key" id="key" )
       label(for='key') Name
       
       input( type='checkbox' name='destroy' id='destroy' checked )
-      textarea(name='style={display:'none'})
+      textarea(name='value' id='value' style={display:'none'})
     div
       
       
       br
       label(for='key') Name
-      input( value= key name="key" id="key" )
+      input( value= key name="_key" id="_key" )
       if random
         p( class='random') Name was randomly generated, adapt to your liking
       br
       label(for='secret') Secret
-      input(value='secret' id='secret')
+      input(value='secret' id='_secret')
       br
       label(for='value') Text to store
       br
-      textarea( name='value' id='value' rows='10')= value
+      textarea( name='_value' id='_value' rows='10')= value
       br
     button( type='submit' id='send') Send
         
