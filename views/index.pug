@@ -9,26 +9,25 @@ html
   body
     h1 Simple internet clipboard
     p This is hosted on glitch.me, you can inspect the code your are running for security, and also don't expect to data to be alive for long, as it is not durable persisted. Store, share the link and move on
-    p Values on server are stored encrypted with AES.
-    p If your are concerned about privacy you can use your onw secret key below or just remix the project on glitch to have your own version
     form(method='POST' action='/' id='form')
       label(for='destroy') Destroy data on first view
-      input( value= key name="key" id="key" )
-      label(for='key') Name
-      
       input( type='checkbox' name='destroy' id='destroy' checked )
-      textarea(name='value' id='value' style={display:'none'})
-    div
-      
-      
       br
-      label(for='key') Name
-      input( value= key name="_key" id="_key" )
+      label(for='key') Name for the clip
+        span https://myclip.glitch.me/
+      input( value= key name="key" id="key" )
+
       if random
         p( class='random') Name was randomly generated, adapt to your liking
-      br
+
+
+      textarea(name='value' id='value' style={display:'none'})= value
+    div
+  
+      p Values are sended encrypted with AES with the following key. If your are concerned about privacy you can use your onw secret key below or just remix the project on glitch to have your own version
       label(for='secret') Secret
       input(value='secret' id='_secret')
+
       br
       label(for='value') Text to store
       br

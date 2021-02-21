@@ -25,6 +25,9 @@ form {
   max-width: 40ch;
 }
 
+span {
+  
+}
 input {
   border: 1px solid silver;
   display: block;
