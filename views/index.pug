@@ -13,6 +13,7 @@ html
     form(method='POST' action='/' id='form')
       label(for='destroy') Destroy data on first view
       input( type='checkbox' name='destroy' id='destroy' checked )
+      input( type='hidden' name='length' id='length')
       br
       label(for='key') Name for the clip
         span https://myclip.glitch.me/
@@ -25,8 +26,9 @@ html
       textarea(name='value' id='value' style={display:'none'})= value
     div
       if value
-        p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
+        label Stored value is #{ length} bytes
         div(class='encrypted')= value
+        p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
       label(for='secret') Secret
       input(value='secret' id='_secret')
       

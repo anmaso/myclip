@@ -70,6 +70,7 @@ app.get("/:key?", (request, response) => {
   var v = dict[key] || {};
   const value = v.value || '';
   const destroy = v.destroy;
+  const length= v.length || 0;
   
   if (destroy){
     delete dict[key];
@@ -83,15 +84,17 @@ app.get("/:key?", (request, response) => {
   const headers =  JSON.stringify(request.headers)
 
   
-  response.render('index', { key, value, headers, random })
+  response.render('index', { key, value, headers, random, length })
 });
 
 app.post("/", (request, response) => {
   const key = request.body.key;
   const value = request.body.value;
   const destroy = request.body.destroy;
+  const length = request.body.length;
+  
   console.log(request.body);
-  dict[key] = {destroy, value};
+  dict[key] = {destroy, value, length};
   
   const href='https://myclip.glitch.me/'+key;
   response.render('result', { key, href })
