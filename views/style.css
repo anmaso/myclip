@@ -85,3 +85,12 @@ button {
 #_secret {
   display: inline;
 }
+
+.code {
+  border: 1px solid #0f4040;
+  font-family: "Courier new";
+  color: white;
+  margin: 1rem;
+  padding: 1rem;
+  background: #2d3944;
+}

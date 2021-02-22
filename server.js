@@ -92,8 +92,8 @@ app.get("/:key?", (request, response) => {
   response.render('index', { key, value, headers, random, length, secret })
 });
 
-app.post("/", (request, response) => {
-  const key = request.body.key;
+app.post("/:key?", (request, response) => {
+  const key = request.params.key || request.body.key;
   const value = request.body.value;
   const destroy = request.body.destroy==='true';
   const length = request.body.length;

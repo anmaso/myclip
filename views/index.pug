@@ -50,6 +50,8 @@ html
 
     footer Made with <a href="https://glitch.com">Glitch</a>!</footer>
 
-
+    p You can also use command line to curl to store and get data
+    div(class='code') curl -X POST http://myclip.glitch.me/key --data "value=hello world"
+    div(class='code') curl -H "accept: text/plain" http://myclip.glitch.me/key
     <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
     <script src="https://button.glitch.me/button.js" defer></script>
