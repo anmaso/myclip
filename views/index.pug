@@ -19,7 +19,7 @@ html
       input( value= key name="key" id="key" )
 
       if random
-        p( class='random') Name was randomly generated, adapt to your liking
+        span( class='random') Name was randomly generated, adapt to your liking
 
 
       textarea(name='value' id='value' style={display:'none'})= value
@@ -27,15 +27,16 @@ html
       
     div
       if value&&secret
-        label Stored value is #{ length} bytes
+        label Stored value was encrypted, data stored is #{ length} bytes
         div(class='encrypted')= value
-        p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
+        p You will be able to read the data the the secret you signed when stored
+        input( id='__secret')
+        button( id='decode') Decode
+        br
       
       label(for='_value') Text to share 
-      if value
-        button( id='decode') Decode
       br
-      textarea( name='_value' id='_value' rows='10')= value
+      textarea( name='_value' id='_value' rows='20')= value
       br
     button( type='submit' id='send') Send
     input( type='checkbox' name='_destroy' id='_destroy' checked )

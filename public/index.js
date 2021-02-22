@@ -4,7 +4,7 @@ var get = function(el){
 
 var decode = function(){
   var value = get('value').value;
-  var secret = get('_secret').value;
+  var secret = get('__secret').value;
   try {
     get('_value').value=CryptoJS.AES.decrypt(value, secret).toString(CryptoJS.enc.Utf8);  
   }catch(e){

@@ -88,7 +88,7 @@ app.get("/:key?", (request, response) => {
   const headers =  JSON.stringify(request.headers)
 
   
-  response.render('index', { key, value, headers, random, length })
+  response.render('index', { key, value, headers, random, length, secret })
 });
 
 app.post("/", (request, response) => {
