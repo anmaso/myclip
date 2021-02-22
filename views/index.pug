@@ -11,8 +11,7 @@ html
     p This is hosted on glitch.me, you can inspect the code your are running for security, and also don't expect data to be alive for long, as it is not durable persisted.
      | Values are sent encrypted with AES with the secret value. If your are concerned about privacy you can use your onw secret key below or just remix the project on glitch to have your own version
     form(method='POST' action='/' id='form')
-      label(for='destroy') Destroy data on first view
-      input( type='checkbox' name='destroy' id='destroy' checked )
+      
       input( type='hidden' name='length' id='length')
       br
       label(for='key') Name for the clip
@@ -24,13 +23,17 @@ html
 
 
       textarea(name='value' id='value' style={display:'none'})= value
+      input( type='checkbox' name='destroy' id='destroy' checked )
+      label(for='destroy') Destroy data on first view
+      
     div
       if value
         label Stored value is #{ length} bytes
         div(class='encrypted')= value
         p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
-      label(for='secret') Secret
-      input(value='secret' id='_secret')
+      input( type='checkbox' name='usesecret' id='usesecret' )
+      label(for='secret') &nbsp;Use secret
+      input(value='secret' id='_secret' disabled)
       
       if value
         button( id='decode') Decode

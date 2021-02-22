@@ -35,6 +35,7 @@ window.onload = function(){
     get('value').value=encrypted;
     get('key').value=key;
     get('length').value=value.length;
+    get('secret').value=secret!='secret';
     get('form').submit();  
     }catch(e){
       alert(e)

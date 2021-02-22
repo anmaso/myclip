@@ -71,6 +71,7 @@ app.get("/:key?", (request, response) => {
   const value = v.value || '';
   const destroy = v.destroy;
   const length= v.length || 0;
+  const secret = v.secret || false;
   
   if (destroy){
     delete dict[key];
@@ -95,9 +96,10 @@ app.post("/", (request, response) => {
   const value = request.body.value;
   const destroy = request.body.destroy;
   const length = request.body.length;
+  const secret = request.body.secret==='true';
   
   console.log(request.body);
-  dict[key] = {destroy, value, length};
+  dict[key] = {destroy, value, length, secret};
   
   const href='https://myclip.glitch.me/'+key;
   response.render('result', { key, href })
