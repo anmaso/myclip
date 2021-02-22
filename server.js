@@ -26,7 +26,7 @@ function haiku(){
   "red", "rough", "still", "small", "sparkling",  "shy",
   "wild", "black", "young", "holy", "solitary",
    "snowy", "proud", "floral", "divine",
-  , "ancient", "purple", "lively", "nameless", "blue", "red", "yellow", "green", "pink"]
+  , "ancient", "purple", "lively", "nameless", "blue", "red", "yellow", "green", "pink", "orange", "lime",  "brown", "gray", "white"]
 
   , nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea",
   "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn",
