@@ -8,8 +8,6 @@ html
     script( src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js")
   body
     h1 MyClip: Simple internet clipboard
-    p This is hosted on glitch.me, you can inspect the code your are running for security, and also don't expect data to be alive for long, as it is not durable persisted.
-     | Values are sent encrypted with AES with the secret value. If your are concerned about privacy you can use your onw secret key below or just remix the project on glitch to have your own version
     form(method='POST' action='/' id='form')
       
       input( type='hidden' name='length' id='length')
@@ -33,12 +31,7 @@ html
         div(class='encrypted')= value
         p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
       
-      label(for='secret') Text to share (
-      input( type='checkbox' name='usesecret' id='usesecret' )
-      
-      span encrypt
-      input(value='secret' id='_secret' style={display:'none'})
-      span )
+      label(for='_value') Text to share 
       if value
         button( id='decode') Decode
       br
@@ -47,7 +40,13 @@ html
     button( type='submit' id='send') Send
     input( type='checkbox' name='_destroy' id='_destroy' checked )
     label(for='destroy') &nbsp;Destroy data on first view
-        
+    br
+    br
+    p This is hosted on glitch.me, you can inspect the code your are running for security, and also don't expect data to be alive for long, as it is not durable persisted.
+    p 
+      | If your are concerned about privacy you can encrypt stored text with secret:
+      input(value='secret' id='_secret')
+
     footer Made with <a href="https://glitch.com">Glitch</a>!</footer>
 
 

@@ -82,3 +82,6 @@ button {
   background: #ec2563;
   color: white;
 }
+#_secret {
+  display: inline;
+}

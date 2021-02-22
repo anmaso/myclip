@@ -22,26 +22,22 @@ window.onload = function(){
     get('decode').onclick=decode;
   }
   
-  get('usesecret').onclick=function(){
-    get('_secret').style.display =  (get('usesecret').checked==true)?'inline':'none';
-  }
   
   get('send').onclick = function(){
   
 
     var value = get('_value').value;
     var secret = get('_secret').value;
-    var usesecret = get('usesecret').checked==true);
     var key = get('key').value;
-    try {
-      if (usesecret){
-        var encrypted = CryptoJS.AES.encrypt(value, secret);
-      }
-    
-    get('value').value=encrypted;
-    get('key').value=key;
     get('length').value=value.length;
-    get('secret').value=secret!='secret';
+    try {
+      if (secret!=='secret'){
+        value = CryptoJS.AES.encrypt(value, secret);
+      }
+    get('value').value=value;
+    get('key').value=key;
+    
+    get('secret').value=secret!=='secret';
     get('destroy').value=get('_destroy').checked;
     get('form').submit();  
     }catch(e){
