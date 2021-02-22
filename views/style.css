@@ -77,3 +77,8 @@ button {
   font-weight: bolder;
   margin-bottom: 3rem;
 }
+
+#send {
+  background: #ec2563;
+  color: white;
+}

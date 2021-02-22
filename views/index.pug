@@ -14,6 +14,7 @@ html
       
       input( type='hidden' name='length' id='length')
       input( type='hidden' name='destroy' id='destroy')
+      input( type='hidden' name='secret' id='secret')
       br
       label(for='key') Name for the clip
         span https://myclip.glitch.me/
@@ -27,7 +28,7 @@ html
       
       
     div
-      if value
+      if value&&secret
         label Stored value is #{ length} bytes
         div(class='encrypted')= value
         p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
@@ -36,11 +37,10 @@ html
       input( type='checkbox' name='usesecret' id='usesecret' )
       
       span encrypt
-      input(value='secret' id='_secret' style={visibility:'hidden'})
+      input(value='secret' id='_secret' style={display:'none'})
       span )
       if value
         button( id='decode') Decode
-      br
       br
       textarea( name='_value' id='_value' rows='10')= value
       br

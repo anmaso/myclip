@@ -31,9 +31,13 @@ window.onload = function(){
 
     var value = get('_value').value;
     var secret = get('_secret').value;
+    var usesecret = get('usesecret').checked==true);
     var key = get('key').value;
     try {
-    var encrypted = CryptoJS.AES.encrypt(value, secret);
+      if (usesecret){
+        var encrypted = CryptoJS.AES.encrypt(value, secret);
+      }
+    
     get('value').value=encrypted;
     get('key').value=key;
     get('length').value=value.length;
