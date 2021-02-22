@@ -20,13 +20,13 @@ const dict = {};
 function haiku(){
   var adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry",
   "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring",
-  "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered",
-  "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green",
-  "long", "late", "lingering", "bold", "little", "morning", "muddy", "old",
-  "red", "rough", "still", "small", "sparkling", "throbbing", "shy",
-  "wandering", "withered", "wild", "black", "young", "holy", "solitary",
-  "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine",
-  "polished", "ancient", "purple", "lively", "nameless"]
+  "winter", "patient", "dawn", 
+  "blue", "broken", "cold",  "frosty", "green",
+  "long", "late",  "bold", "little", "morning", "muddy", "old",
+  "red", "rough", "still", "small", "sparkling",  "shy",
+  "wild", "black", "young", "holy", "solitary",
+   "snowy", "proud", "floral", "divine",
+  , "ancient", "purple", "lively", "nameless", "blue", "red", "yellow", "green", "pink"]
 
   , nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea",
   "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn",
@@ -79,7 +79,10 @@ app.get("/:key?", (request, response) => {
 
   // express helps us take JS objects and send them as JSON
   if (request.headers && request.headers["accept"] == "application/json") {
-    return response.json({ [key]: dict[key] });
+    return response.json({  value });
+  }
+  if (request.headers && request.headers["accept"] == "text/plain") {
+    return response.send( value );
   }
   const headers =  JSON.stringify(request.headers)
 
