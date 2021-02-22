@@ -22,7 +22,9 @@ window.onload = function(){
     get('decode').onclick=decode;
   }
   
-  
+  get('usesecret').onclick=function(){
+    get('_secret').style.display =  (get('usesecret').checked==true)?'inline':'none';
+  }
   
   get('send').onclick = function(){
   

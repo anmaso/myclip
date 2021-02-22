@@ -23,8 +23,7 @@ html
 
 
       textarea(name='value' id='value' style={display:'none'})= value
-      input( type='checkbox' name='destroy' id='destroy' checked )
-      label(for='destroy') Destroy data on first view
+      
       
     div
       if value
@@ -32,8 +31,8 @@ html
         div(class='encrypted')= value
         p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
       input( type='checkbox' name='usesecret' id='usesecret' )
-      label(for='secret') &nbsp;Use secret
-      input(value='secret' id='_secret' disabled)
+      label(for='secret') &nbsp;Share encrypted
+      input(value='secret' id='_secret' style={display:'none'})
       
       if value
         button( id='decode') Decode
@@ -43,6 +42,8 @@ html
       textarea( name='_value' id='_value' rows='10')= value
       br
     button( type='submit' id='send') Send
+    input( type='checkbox' name='destroy' id='destroy' checked )
+    label(for='destroy') &nbsp;Destroy data on first view
         
     footer Made with <a href="https://glitch.com">Glitch</a>!</footer>
 
