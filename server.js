@@ -95,7 +95,7 @@ app.get("/:key?", (request, response) => {
 app.post("/", (request, response) => {
   const key = request.body.key;
   const value = request.body.value;
-  const destroy = request.body.destroy;
+  const destroy = request.body.destroy==='true';
   const length = request.body.length;
   const secret = request.body.secret==='true';
   

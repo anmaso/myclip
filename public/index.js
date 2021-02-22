@@ -2,9 +2,10 @@ var get = function(el){
   return document.getElementById(el);
 }
 
-var decode = function(){
+var decodeValue = function(){
   var value = get('value').value;
-  var secret = get('__secret').value;
+  var secret = get('__secret') && get('__secret').value;
+  if (!secret) return;
   try {
     get('_value').value=CryptoJS.AES.decrypt(value, secret).toString(CryptoJS.enc.Utf8);  
   }catch(e){
@@ -15,11 +16,10 @@ var decode = function(){
 
 window.onload = function(){
 
-  var value = get('value').value;
-  
-  if(value){
-    decode()
-    get('decode').onclick=decode;
+  var decode = get('decode');
+  if(decode){
+    decodeValue()
+    decode.onclick=decodeValue;
   }
   
   
