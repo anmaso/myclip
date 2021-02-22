@@ -13,6 +13,7 @@ html
     form(method='POST' action='/' id='form')
       
       input( type='hidden' name='length' id='length')
+      input( type='hidden' name='destroy' id='destroy')
       br
       label(for='key') Name for the clip
         span https://myclip.glitch.me/
@@ -30,19 +31,21 @@ html
         label Stored value is #{ length} bytes
         div(class='encrypted')= value
         p You will be able to read the data the the secret you signed when stored. Default value is 'secret'
-      input( type='checkbox' name='usesecret' id='usesecret' )
-      label(for='secret') &nbsp;Share encrypted
-      input(value='secret' id='_secret' style={display:'none'})
       
+      label(for='secret') Text to share (
+      input( type='checkbox' name='usesecret' id='usesecret' )
+      
+      span encrypt
+      input(value='secret' id='_secret' style={visibility:'hidden'})
+      span )
       if value
         button( id='decode') Decode
       br
-      label(for='value') Text to share
       br
       textarea( name='_value' id='_value' rows='10')= value
       br
     button( type='submit' id='send') Send
-    input( type='checkbox' name='destroy' id='destroy' checked )
+    input( type='checkbox' name='_destroy' id='_destroy' checked )
     label(for='destroy') &nbsp;Destroy data on first view
         
     footer Made with <a href="https://glitch.com">Glitch</a>!</footer>

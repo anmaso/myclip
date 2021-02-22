@@ -38,6 +38,7 @@ window.onload = function(){
     get('key').value=key;
     get('length').value=value.length;
     get('secret').value=secret!='secret';
+    get('destroy').value=get('_destroy').checked;
     get('form').submit();  
     }catch(e){
       alert(e)
