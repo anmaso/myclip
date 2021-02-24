@@ -22,6 +22,20 @@ window.onload = function(){
     decode.onclick=decodeValue;
   }
   
+  var copy =get('copy');
+  if (copy){
+    copy.onclick= function() {
+      const el = document.createElement('textarea');
+      el.value = get('_value').value;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+  }
   
   get('send').onclick = function(){
   

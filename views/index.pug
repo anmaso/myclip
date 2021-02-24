@@ -35,6 +35,8 @@ html
         br
       
       label(for='_value') Text to share 
+      if (value)
+        button(id='copy') Copy to clipboard
       br
       textarea( name='_value' id='_value' rows='20')= value
       br
