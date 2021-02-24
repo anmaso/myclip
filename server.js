@@ -60,9 +60,19 @@ app.get("/:key/:value", (request, response) => {
   response.redirect("/" + key);
 });
 
+var isHTML = function(headers){
+  headers = headers || {};
+  if (headers["accept"] == "text/plain") return false;
+  if ((headers["user-agent"]||'').toLowerCase().indexOf('curl')>=0 ) return false;
+  return true;
+  
+}
+
 // send the default array of dreams to the webpage
 app.get("/:key?", (request, response) => {
+  
   var key = request.params.key;
+  console.log("asking for key:"+key);
   var random = false;
   if (!key){
     key= haiku();
@@ -78,12 +88,13 @@ app.get("/:key?", (request, response) => {
     delete dict[key];
   }
   
+  console.log({value, length})
 
   // express helps us take JS objects and send them as JSON
   if (request.headers && request.headers["accept"] == "application/json") {
     return response.json({  value });
   }
-  if (request.headers && request.headers["accept"] == "text/plain") {
+  if (!isHTML(request.headers)) {
     return response.send( value );
   }
   const headers =  JSON.stringify(request.headers)
@@ -99,11 +110,16 @@ app.post("/:key?", (request, response) => {
   const length = request.body.length;
   const secret = request.body.secret==='true';
   
-  console.log(request.body);
-  dict[key] = {destroy, value, length, secret};
+  var info = {destroy, value, length, secret, key};
+  console.log(info);
+  dict[key] = info;
   
   const href='https://myclip.glitch.me/'+key;
-  response.render('result', { key, href })
+  if (isHTML(response.headers)){
+    return response.render('result', { key, href })  
+  }
+  response.send(href);
+
 });
 
 // listen for requests :)
