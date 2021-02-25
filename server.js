@@ -48,6 +48,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.set('view engine', 'pug')
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // https://expressjs.com/en/starter/basic-routing.html
 
@@ -60,12 +61,20 @@ app.get("/:key/:value", (request, response) => {
   response.redirect("/" + key);
 });
 
-var isHTML = function(headers){
+var headerContains = function(headers, header, str){
   headers = headers || {};
-  if (headers["accept"] == "text/plain") return false;
-  if ((headers["user-agent"]||'').toLowerCase().indexOf('curl')>=0 ) return false;
+  return (headers[header]||'').toLowerCase().indexOf(str)>=0;
+}
+
+var isHTML = function(headers){
+  if (headerContains(headers, "accept", "text/plain")) return false;
+  if (headerContains(headers, "user-agent",'curl')) return false;
   return true;
   
+}
+
+var isURLEncoded = function(headers){
+  return headerContains(headers, "content-type","application/x-www-form-urlencoded");
 }
 
 // send the default array of dreams to the webpage
@@ -104,14 +113,27 @@ app.get("/:key?", (request, response) => {
 });
 
 app.post("/:key?", (request, response) => {
-  const key = request.params.key || request.body.key;
-  const value = request.body.value;
-  const destroy = request.body.destroy!=='false';
-  const length = request.body.length;
-  const secret = request.body.secret==='true';
+  var key = request.params.key ;
+  var value, destroy, lenght, secret;
+  if (isURLEncoded(request.headers)){
+    secret = false;
+    destroy = true;
+    value = request.body || '';
+    
+  }else {
+    if (!key) key= request.body.key || 'nokey';
+    value = request.body.value || '';
+    destroy = request.body.destroy!=='false';
+    secret = request.body.secret==='true';
+  }
   
+  const length = value.length;
+    
   var info = {destroy, value, length, secret, key};
   console.log(info);
+  console.log("data")
+  console.log(JSON.stringify(request.headers))
+  console.log(request.body)
   dict[key] = info;
   
   const href='https://myclip.glitch.me/'+key;
