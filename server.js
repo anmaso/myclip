@@ -48,7 +48,6 @@ app.use(express.static("public"));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.set('view engine', 'pug')
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // https://expressjs.com/en/starter/basic-routing.html
 
@@ -122,11 +121,12 @@ app.post("/:key?", (request, response) => {
     
   }else {
     if (!key) key= request.body.key || 'nokey';
-    value = request.body.value || '';
-    destroy = request.body.destroy!=='false';
-    secret = request.body.secret==='true';
+    var body = request.body;
+    value = body.value || '';
+    destroy = body.destroy!=='false';
+    secret = body.secret==='true';
     console.log("body")
-    console.log(request.body)
+    console.log(body)
   }
   
   const length = value.length;
