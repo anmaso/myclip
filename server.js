@@ -120,8 +120,9 @@ app.post("/:key?", (request, response) => {
     value = request.body || '';
     
   }else {
-    if (!key) key= request.body.key || 'nokey';
-    var body = request.body;
+    var body = request.body || {};
+    if (!key) key= body.key || 'nokey';
+    
     value = body.value || '';
     destroy = body.destroy!=='false';
     secret = body.secret==='true';
@@ -139,6 +140,7 @@ app.post("/:key?", (request, response) => {
   dict[key] = info;
   
   const href='https://myclip.glitch.me/'+key;
+  console.log('href', href)
   if (isHTML(response.headers)){
     return response.render('result', { key, href })  
   }
