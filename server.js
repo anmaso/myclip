@@ -113,14 +113,10 @@ app.get("/:key?", (request, response) => {
 
 app.post("/:key?", (request, response) => {
   var key = request.params.key ;
+  var body = request.body || {};
+  console.log("BODY", body)
   var value, destroy, lenght, secret;
-  if (isURLEncoded(request.headers)){
-    secret = false;
-    destroy = true;
-    value = request.body || '';
-    
-  }else {
-    var body = request.body || {};
+  
     if (!key) key= body.key || 'nokey';
     
     value = body.value || '';
@@ -128,16 +124,18 @@ app.post("/:key?", (request, response) => {
     secret = body.secret==='true';
     console.log("body")
     console.log(body)
-  }
+  
   
   const length = value.length;
     
   var info = {destroy, value, length, secret, key};
+  console.log('key', key)
   console.log("info",info);
   console.log("data")
   console.log(JSON.stringify(request.headers))
   console.log(value)
   dict[key] = info;
+  
   
   const href='https://myclip.glitch.me/'+key;
   console.log('href', href)
