@@ -125,6 +125,8 @@ app.post("/:key?", (request, response) => {
     value = request.body.value || '';
     destroy = request.body.destroy!=='false';
     secret = request.body.secret==='true';
+    console.log("body")
+    console.log(request.body)
   }
   
   const length = value.length;
