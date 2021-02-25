@@ -133,7 +133,7 @@ app.post("/:key?", (request, response) => {
   console.log(info);
   console.log("data")
   console.log(JSON.stringify(request.headers))
-  console.log(request.body)
+  console.log(value)
   dict[key] = info;
   
   const href='https://myclip.glitch.me/'+key;
