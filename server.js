@@ -133,7 +133,7 @@ app.post("/:key?", (request, response) => {
   const length = value.length;
     
   var info = {destroy, value, length, secret, key};
-  console.log(info);
+  console.log("info",info);
   console.log("data")
   console.log(JSON.stringify(request.headers))
   console.log(value)
