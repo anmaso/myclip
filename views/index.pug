@@ -41,7 +41,7 @@ html
       textarea( name='_value' id='_value' rows='20')= value
       br
     button( type='submit' id='send') Send
-    input( type='checkbox' name='_destroy' id='_destroy' checked )
+    input( type='checkbox' name='_destroy' id='_destroy'  )
     label(for='destroy') &nbsp;Destroy data on first view
     br
     br
@@ -52,8 +52,11 @@ html
 
     footer Made with <a href="https://glitch.com">Glitch</a>!</footer>
 
-    p You can also use command line to curl to store and get data
-    div(class='code') curl -X POST http://myclip.glitch.me/key --data "value=hello world"
-    div(class='code') curl -H "accept: text/plain" http://myclip.glitch.me/key
+    p You can also use command line to curl to store and get data:
+    div(class='code') curl -X POST http://myclip.glitch.me/{key} --data "hello world"
+    p If you want to post the contents of a file you can do:
+    div(class='code') curl -X POST http://myclip.glitch.me/{key} --data-binary @filename
+    p And to get the contents:
+    div(class='code') curl http://myclip.glitch.me/{key}
     <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
     <script src="https://button.glitch.me/button.js" defer></script>

@@ -7,6 +7,13 @@ const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
 var pug = require("pug");
+var multer  = require('multer')
+var storage = multer.memoryStorage()
+var upload = multer({ storage: storage })
+const fs = require('fs');
+
+const PORT = process.env.PORT;
+const URL = process.env.URL;
 
 // our default array of dreams
 const dreams = [
@@ -45,11 +52,52 @@ function haiku(){
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.set('view engine', 'pug')
 
+
 // https://expressjs.com/en/starter/basic-routing.html
+/*
+app.use(function(req, res, next) {
+  var accept = req.headers['accept'] || '';
+
+  if (accept.indexOf('html')>=0){
+    return next();
+  }
+  
+  console.log("raw data")
+  
+  var data = '';
+  req.on('data', function(chunk) {
+    console.log("chunk", chunk)
+    data += chunk;
+  });
+  req.on('end', function() {
+    req.rawBody = data;
+    console.log("end",data)
+    next();
+  });
+});
+*/
+app.use(bodyParser.json({
+  verify: function(req, res, buf, encoding){
+    console.log('verify')
+    if ((req.headers['accept']||'').indexOf('html')<0){
+      req.rawBody = buf.toString();
+      console.log("rawbody", req.rawBody)
+    }
+  }
+})); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true , 
+                               limit: '50mb',
+  verify: function(req, res, buf, encoding){
+    console.log('verify')
+    if ((req.headers['accept']||'').indexOf('html')<0){
+      req.rawBody = buf.toString();
+      console.log("rawbody", req.rawBody)
+    }
+  }
+})); // for parsing application/x-www-form-urlencoded
+
 
 
 app.get("/:key/:value", (request, response) => {
@@ -72,21 +120,31 @@ var isHTML = function(headers){
   
 }
 
+var acceptHTML = function(request){
+  return headerContains(request.headers, "accept", "html");
+}
+
 var isURLEncoded = function(headers){
   return headerContains(headers, "content-type","application/x-www-form-urlencoded");
+}
+
+var isFormData = function(headers){
+  return headerContains(headers, "content-type", "multipart/form-data");
 }
 
 // send the default array of dreams to the webpage
 app.get("/:key?", (request, response) => {
   
   var key = request.params.key;
-  console.log("asking for key:"+key);
+  var format = request.query.format
+  console.log("asking for key:"+key+ " format:"+format);
   var random = false;
   if (!key){
     key= haiku();
     random=true;
   }
-  var v = dict[key] || {};
+  var content = fs.existsSync('files/'+key)? JSON.parse(fs.readFileSync('files/'+key)):{};
+  var v = dict[key] || content;
   const value = v.value || '';
   const destroy = v.destroy;
   const length= v.length || 0;
@@ -102,6 +160,20 @@ app.get("/:key?", (request, response) => {
   if (request.headers && request.headers["accept"] == "application/json") {
     return response.json({  value });
   }
+  if (format=='json'){
+    response.set({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json'
+    })
+
+    return response.send(value)
+  }
+  if (format){
+    response.set({
+      'Access-Control-Allow-Origin':'*'
+    })
+    return response.send(value);
+  }
   if (!isHTML(request.headers)) {
     return response.send( value );
   }
@@ -111,42 +183,41 @@ app.get("/:key?", (request, response) => {
   response.render('index', { key, value, headers, random, length, secret })
 });
 
-app.post("/:key?", (request, response) => {
+var getFile = function(request){
+  return request.file && request.file.buffer && request.file.buffer.toString();
+}
+
+app.post("/:key?", upload.single('value'),(request, response) => {
   var key = request.params.key ;
   var body = request.body || {};
-  console.log("BODY", body)
   var value, destroy, lenght, secret;
   
-    if (!key) key= body.key || 'nokey';
-    
-    value = body.value || '';
-    destroy = body.destroy!=='false';
-    secret = body.secret==='true';
-    console.log("body")
-    console.log(body)
-  
-  
+  if (!key) key= body.key || 'nokey';
+
+  value = request.rawBody || getFile(request) || body.value || '';
+  destroy = body.destroy!=='false';
+  secret = body.secret==='true';
+   
   const length = value.length;
     
   var info = {destroy, value, length, secret, key};
-  console.log('key', key)
-  console.log("info",info);
-  console.log("data")
-  console.log(JSON.stringify(request.headers))
-  console.log(value)
   dict[key] = info;
-  
-  
-  const href='https://myclip.glitch.me/'+key;
-  console.log('href', href)
-  if (isHTML(response.headers)){
-    return response.render('result', { key, href })  
+  if (destroy===false ){
+    fs.writeFileSync('files/'+key, JSON.stringify(info))
   }
-  response.send(href);
-
+  
+  
+  const href=URL+'/'+key;
+  
+  if (request.file || !acceptHTML(request)){
+    return response.send(href);
+  }
+  
+  return response.render('result', { key, href })  
+  
 });
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
