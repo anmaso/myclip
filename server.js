@@ -180,7 +180,7 @@ app.get("/:key?", (request, response) => {
   const headers =  JSON.stringify(request.headers)
 
   
-  response.render('index', { key, value, headers, random, length, secret })
+  response.render('index', { key, value, headers, random, length, secret, URL })
 });
 
 var getFile = function(request){
@@ -213,7 +213,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
     return response.send(href);
   }
   
-  return response.render('result', { key, href })  
+  return response.render('result', { key, href, URL })  
   
 });
 
