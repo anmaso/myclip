@@ -98,6 +98,9 @@ app.use(bodyParser.urlencoded({ extended: true ,
   }
 })); // for parsing application/x-www-form-urlencoded
 
+app.get("/help", (request, response)=>{
+  response.render("help")
+})
 
 
 app.get("/:key/:value", (request, response) => {
@@ -110,12 +113,14 @@ app.get("/:key/:value", (request, response) => {
 
 var headerContains = function(headers, header, str){
   headers = headers || {};
+  console.log(headers)
   return (headers[header]||'').toLowerCase().indexOf(str)>=0;
 }
 
 var isHTML = function(headers){
   if (headerContains(headers, "accept", "text/plain")) return false;
   if (headerContains(headers, "user-agent",'curl')) return false;
+  if (headerContains(headers, "user-agent",'wget')) return false;
   return true;
   
 }
@@ -154,7 +159,7 @@ app.get("/:key?", (request, response) => {
     delete dict[key];
   }
   
-  console.log({value, length})
+  //console.log({value, length})
 
   // express helps us take JS objects and send them as JSON
   if (request.headers && request.headers["accept"] == "application/json") {
@@ -192,7 +197,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   var body = request.body || {};
   var value, destroy, lenght, secret;
   
-  if (!key) key= body.key || 'nokey';
+  if (!key) key= body.key || haiku();
 
   value = request.rawBody || getFile(request) || body.value || '';
   destroy = body.destroy!=='false';
@@ -210,7 +215,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   const href=URL+'/'+key;
   
   if (request.file || !acceptHTML(request)){
-    return response.send(href);
+    return response.render('curl',{href});
   }
   
   return response.render('result', { key, href, URL })  
