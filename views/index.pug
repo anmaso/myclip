@@ -36,11 +36,11 @@ html
       
       label(for='_value') Text to share 
       if (value)
-        button(id='copy') Copy to clipboard
+        button(id='copy' class='copy') Copy text to clipboard
       br
       textarea( name='_value' id='_value' rows='20')= value
       br
-    button( type='submit' id='send') Send
+    button( type='submit' id='send') Save clip
     input( type='checkbox' name='_destroy' id='_destroy'  )
     label(for='destroy') &nbsp;Destroy data on first view
     br

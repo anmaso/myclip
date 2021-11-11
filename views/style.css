@@ -69,17 +69,21 @@ textarea {
 a {
   color: white;
 }
-button {
+button, .button {
   padding: 0.5rem;
   background: #232526;
   border: 1px solid #0f4040;
   color: #ccc;
   font-weight: bolder;
+  font-size: .8em;
+  text-decoration: none;
+  color: white;
 }
 
 #send {
   background: #ec2563;
   color: white;
+  cursor:pointer;
 }
 #_secret {
   display: inline;
@@ -92,4 +96,14 @@ button {
   margin: 1rem;
   padding: 1rem;
   background: #2d3944;
+}
+
+.copy {
+  background: green;
+  color: white;
+  cursor:pointer;
+}
+
+.new {
+  background: #ec2563;
 }

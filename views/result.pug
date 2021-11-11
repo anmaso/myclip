@@ -2,10 +2,18 @@ html
   head
     style
       include ./style.css
+    script(src='./result.js')
   body
-    h1 MyClip: Stored successfuly
-    p Data stored in URL:
-    a(href= href)= href
+    h1 Clip stored successfuly
+    p Share the following URL to access data:
+    div(class='code') 
+      a(id='link' href= href)= href
+    button(id='copy' class='copy') Copy URL to clipboard
     br
     br
-    a(href=URL) new clip
+    p You can also curl/wget to get the data
+    div(class='code') curl 
+       span= href
+    br
+    br
+    a(href=URL class='button new') new clip
