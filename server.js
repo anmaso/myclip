@@ -202,7 +202,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   value = request.rawBody || getFile(request) || body.value || '';
   destroy = body.destroy!=='false';
   secret = body.secret==='true';
-   
+  
   const length = value.length;
     
   var info = {destroy, value, length, secret, key};
@@ -215,6 +215,8 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   const href=URL+'/'+key;
   
   if (request.file || !acceptHTML(request)){
+    response.set('Access-Control-Allow-Origin',' *');
+    response.set('Content-type', 'application/octet-stream');
     return response.render('curl',{href});
   }
   
