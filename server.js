@@ -229,7 +229,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
 app.get('/.well-known/acme-challenge/:code', (req, res)=>{
   var code = req.params.code;
   console.log("acme-challgenge", code)
-  if (code==ACME){
+  if ('*'==ACME || code==ACME){
     res.send(code);
     return;
   }
