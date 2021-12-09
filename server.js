@@ -14,6 +14,7 @@ const fs = require('fs');
 
 const PORT = process.env.PORT;
 const URL = process.env.URL;
+const ACME = process.env.ACME;
 
 // our default array of dreams
 const dreams = [
@@ -202,7 +203,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   value = request.rawBody || getFile(request) || body.value || '';
   destroy = body.destroy!=='false';
   secret = body.secret==='true';
-   
+  
   const length = value.length;
     
   var info = {destroy, value, length, secret, key};
@@ -215,12 +216,26 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   const href=URL+'/'+key;
   
   if (request.file || !acceptHTML(request)){
+    response.set('Access-Control-Allow-Origin',' *');
+    response.set('Content-type', 'application/octet-stream');
     return response.render('curl',{href});
   }
   
   return response.render('result', { key, href, URL })  
   
 });
+
+
+app.get('/.well-known/acme-challenge/:code', (req, res)=>{
+  var code = req.params.code;
+  console.log("acme-challgenge", code)
+  if (code==ACME){
+    res.send(code);
+    return;
+  }
+  res.status(500);
+  res.end();
+})
 
 // listen for requests :)
 const listener = app.listen(PORT, () => {
