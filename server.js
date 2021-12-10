@@ -81,20 +81,16 @@ app.use(function(req, res, next) {
 */
 app.use(bodyParser.json({
   verify: function(req, res, buf, encoding){
-    console.log('verify')
     if ((req.headers['accept']||'').indexOf('html')<0){
       req.rawBody = buf.toString();
-      console.log("rawbody", req.rawBody)
     }
   }
 })); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true , 
                                limit: '50mb',
   verify: function(req, res, buf, encoding){
-    console.log('verify')
     if ((req.headers['accept']||'').indexOf('html')<0){
       req.rawBody = buf.toString();
-      console.log("rawbody", req.rawBody)
     }
   }
 })); // for parsing application/x-www-form-urlencoded
@@ -114,7 +110,7 @@ app.get("/:key/:value", (request, response) => {
 
 var headerContains = function(headers, header, str){
   headers = headers || {};
-  console.log(headers)
+  console.log(JSON.stringify(headers))
   return (headers[header]||'').toLowerCase().indexOf(str)>=0;
 }
 
@@ -143,7 +139,7 @@ app.get("/:key?", (request, response) => {
   
   var key = request.params.key;
   var format = request.query.format
-  console.log("asking for key:"+key+ " format:"+format);
+  console.log(JSON.stringify({key,format}));
   var random = false;
   if (!key){
     key= haiku();
