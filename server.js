@@ -50,7 +50,7 @@ function haiku(){
 }
 
 const getURL = (req)=>{
-  return URL? URL : req.protocol + '://' + req.get('host') + '/';
+  return URL? URL : 'https://' + req.get('host') + '/';
 }
 
 
