@@ -15,7 +15,7 @@ html
       input( type='hidden' name='secret' id='secret' value= secret)
       br
       label(for='key') Name for the clip
-        span=  URL + '/'
+        span=  URL
       input( value= key name="key" id="key" )
 
       if random
@@ -29,7 +29,8 @@ html
       if value&&secret
         label Stored value was encrypted, data stored is #{ length} bytes
         div(class='encrypted')= value
-        p You will be able to read the data the the secret you signed when stored
+        p You will be able to read the data the the secret you signed when sent to the server.
+        p The secret will be required when reading the clip and decoded in the browser
         input( id='__secret')
         button( id='decode') Decode
         br

@@ -49,11 +49,16 @@ function haiku(){
   return adjs[Math.floor(Math.random()*(adjs.length-1))]+"-"+nouns[Math.floor(Math.random()*(nouns.length-1))];
 }
 
+const getURL = (req)=>{
+  return URL? URL : req.protocol + '://' + req.get('host') + '/';
+}
+
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
 app.set('view engine', 'pug')
+
 
 
 // https://expressjs.com/en/starter/basic-routing.html
@@ -182,7 +187,7 @@ app.get("/:key?", (request, response) => {
   const headers =  JSON.stringify(request.headers)
 
   
-  response.render('index', { key, value, headers, random, length, secret, URL })
+  response.render('index', { key, value, headers, random, length, secret, URL: getURL(request) })
 });
 
 var getFile = function(request){
@@ -209,7 +214,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
   }
   
   
-  const href=URL+'/'+key;
+  const href=getURL(request)+key;
   
   if (request.file || !acceptHTML(request)){
     response.set('Access-Control-Allow-Origin',' *');
@@ -217,7 +222,7 @@ app.post("/:key?", upload.single('value'),(request, response) => {
     return response.render('curl',{href});
   }
   
-  return response.render('result', { key, href, URL })  
+  return response.render('result', { key, href, URL: getURL(request) })  
   
 });
 
