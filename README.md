@@ -27,3 +27,6 @@ Then retrieve it with:
 ```
 curl https://myclip.glitch.me/{key}
 ```
+## Hostname
+The hostname is automatically discover via request.get('host') and protocol is asumed `https`
+If you want to force `http` or assign a different base host path you can declare environment variable `URL`
