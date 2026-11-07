@@ -126,6 +126,18 @@ button, .button {
 .new {
   background: #ec2563;
 }
+/* Heading with the app icon in front */
+h1 {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.logo {
+  width: 1.4em;
+  height: 1.4em;
+  flex: none;
+}
+
 /* Phones and narrow windows */
 @media (max-width: 600px) {
   body {

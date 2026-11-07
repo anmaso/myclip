@@ -9,7 +9,9 @@ html
     script(src='./index.js')
     script( src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js")
   body
-    h1 MyClip: Simple internet clipboard
+    h1
+      img(class='logo' src='/favicon.svg' alt='')
+      | MyClip: Simple internet clipboard
     form(method='POST' action='/' id='form')
       
       input( type='hidden' name='length' id='length')
