@@ -1,0 +1,41 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Myclip</title>
+
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>easy clipboard to copy & paste values accross devices</h1>
+    </header>
+
+    <main>
+
+      <p>Texto a guardar</p>
+
+      <form method="post">
+        <label for="key">
+          Key
+        </label>
+        <input name="key"/>
+      <label>Value</label>  
+      <textarea name="value" type="text" width="100%" rows="30" required placeholder="Dreams!"></textarea>
+        
+        <button type="submit" id="submit-dream">Guardar</button>
+      </form>
+
+
+    </main>
+
+  </body>
+</html>

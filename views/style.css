@@ -1,0 +1,149 @@
+body {
+  font-family: Arial;
+ background: #232526;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background: #0F2027;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  padding: 3rem;
+  margin: 0;
+  min-height: 100vh;
+  color: #ddd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input, textarea, .encrypted {
+  max-width: 100%;
+}
+
+.encrypted {
+  text-decoration: italic;
+  height: 20px;
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+label {
+  color: white;
+}
+
+/* Clip name row: fixed URL prefix joined to the editable key */
+.keyrow {
+  display: flex;
+  flex-wrap: wrap;
+  margin: .5rem 0;
+}
+
+.prefix {
+    padding: .5rem;
+    border: 1px solid #0f4040;
+    font-family: Consolas, "Courier new";
+    font-size: 1rem;
+    background: #0f2027;
+    border-right: none;
+    color: #bbb;
+}
+
+input  {
+  background: #0f2027;
+  color: white;
+  padding: .5rem;
+  border:1px solid #0f4040;
+  font-family: Consolas, "Courier new";
+  font-size: 1rem;
+  
+}
+#_destroy {
+  margin: 0px 4px;
+}
+
+input#key {
+  margin-left: 0px;
+  border-left: none;
+  flex: 1;
+  min-width: 8rem;
+}
+textarea {
+  width: 100%;
+  font-family: Consolas, "Courier new";
+  background: #0f2027;
+  border:1px solid #0f4040;
+  color: white;
+  font-size: 1rem;
+    
+}
+
+.random {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+a {
+  color: white;
+}
+button, .button {
+  padding: 0.5rem;
+  background: #232526;
+  border: 1px solid #0f4040;
+  color: #ccc;
+  font-weight: bolder;
+  font-size: .8em;
+  text-decoration: none;
+  color: white;
+}
+
+#send {
+  background: #ec2563;
+  color: white;
+  cursor:pointer;
+}
+#_secret {
+  display: inline;
+}
+
+.code {
+  border: 1px solid #0f4040;
+  font-family: "Courier new";
+  color: white;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #2d3944;
+  /* long URLs and commands wrap instead of widening the page */
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  background: green;
+  color: white;
+  cursor:pointer;
+}
+
+.new {
+  background: #ec2563;
+}
+/* Phones and narrow windows */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+  .prefix {
+    font-size: .85rem;
+  }
+  button, .button {
+    display: inline-block;
+    padding: .75rem 1rem;
+    font-size: 1rem;
+    margin: .25rem 0;
+  }
+  #_value {
+    height: 45vh;
+  }
+}

@@ -1,0 +1,3 @@
+node_modules/
+# clips saved at runtime; never commit them
+files/
